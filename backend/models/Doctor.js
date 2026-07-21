@@ -1,0 +1,53 @@
+import mongoose from "mongoose";
+
+const doctorSchema = new mongoose.Schema({
+
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        lowercase: true,
+        index: true,
+    },
+
+    password: {
+        type: String,
+        required: true,
+        select: false,
+    },
+
+    name: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+
+    specialization: { type: String, default: "" },
+
+    imageUrl: { type: String, default: null },
+    imagePublicId: { type: String, default: null },
+
+    experience: { type: String, default: "" },
+    qualifications: { type: String, default: "" },
+    location: { type: String, default: "" },
+    about: { type: String, default: "" },
+
+    fee: { type: Number, default: 0 },
+    availability: {
+    type: String,
+        enum: ["Available", "Unavailable"],
+        default: "Available",
+    },
+    // when doctor will available and when not
+    schedule: { type: Map, of: [String], default: { } },
+    patients: { type: String, default: "" },
+},
+{
+    timestamps: true,
+});
+
+doctorSchema.index({name: "text" , specialization: "text"}); // text search index for name and specialization help in better searching
+
+const Doctor = mongoose.models.Doctor || mongoose.model("Doctor", doctorSchema);
+
+export default Doctor;
