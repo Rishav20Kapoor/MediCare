@@ -265,7 +265,7 @@ const  AddPage = () =>{
       if (form.imageFile) fd.append("image", form.imageFile);
 
       // using backend url 
-      const API_BASE = "http://localhost:4000/api";
+      const API_BASE = `${(import.meta.env.VITE_API_URL || "http://localhost:4000").replace(/\/$/, "")}/api`;
       // to post the doctor details to the server, we will use fetch API and send the form data as body, and set the method to POST
       const res = await fetch(`${API_BASE}/doctors`, {
         method: "POST",

@@ -7,7 +7,6 @@ import Razorpay from "razorpay";
 
 import {getAuth} from "@clerk/express";
 import { clerkClient } from "@clerk/clerk-sdk-node";
-import { appointmentPageStyles } from "../../frontend/src/assets/dummyStyles.js";
 
 dotenv.config();
 

@@ -10,15 +10,23 @@ import appointmentRouter from "./routes/appointmentRouter.js";
 
 const app  = express();
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 // frontend as well as admin url
 
-const allowedOrigins = [
+const localOrigins = [
     "http://localhost:5173",
     "http://localhost:5174",
     "http://127.0.0.1:5173",
     "http://127.0.0.1:5174",
+];
+
+const allowedOrigins = [
+    ...localOrigins,
+    ...(process.env.CLIENT_ORIGINS || "")
+        .split(",")
+        .map((origin) => origin.trim().replace(/\/$/, ""))
+        .filter(Boolean),
 ];
 
 const isAllowedOrigin = (origin) => {
@@ -44,6 +52,10 @@ app.use(cors({
 app.use(express.json({limit: "20mb"}));
 app.use(clerkMiddleware());
 app.use(express.urlencoded({limit: "20mb", extended: true}));
+
+app.get("/health", (req, res) => {
+    res.status(200).json({ status: "ok" });
+});
 
 // db
 connectDB();

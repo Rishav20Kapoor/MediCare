@@ -3,7 +3,7 @@ import { pageStyles as ps , statusClasses , keyframesStyles } from '../assets/du
 import { BadgeIndianRupee, Calendar, Search } from 'lucide-react';
 
 // backend url
-const API_BASE = "http://localhost:4000/api";
+const API_BASE = `${(import.meta.env.VITE_API_URL || "http://localhost:4000").replace(/\/$/, "")}/api`;
 
 // helper functions  
 

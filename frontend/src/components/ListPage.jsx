@@ -3,7 +3,7 @@ import { listPageStyles as ls } from '../assets/dummyStyles';
 import { Calendar, Search, X } from 'lucide-react';
 import { useParams} from 'react-router-dom';
 
-const API_BASE = "http://localhost:4000";
+const API_BASE = (import.meta.env.VITE_API_URL || "http://localhost:4000").replace(/\/$/, "");
 
 
 // parse date time 
